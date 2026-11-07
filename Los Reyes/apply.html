@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Apply — Los Reyes</title>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh; /* FIX: Prevents keyboard from squishing content */
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: #0a0a0a;
+      color: #eaeaea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .apply-card {
+      width: 100%;
+      max-width: 480px;
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 20px;
+      transition: 0.2s;
+    }
+
+    .back:hover {
+      color: #4ade80;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 6px;
+    }
+
+    .apply-meta {
+      color: #9ca3af;
+      font-size: 14px;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .apply-meta i {
+      color: #4ade80;
+      margin-right: 4px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #9ca3af;
+      margin: 14px 0 6px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px 15px; /* FIX: Bigger touch target */
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      font-size: 16px; /* FIX: Prevents iOS auto-zoom on input tap */
+      font-family: inherit;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #4ade80;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      margin-top: 24px;
+      padding: 16px; /* FIX: Bigger touch target */
+      border: none;
+      border-radius: 10px;
+      background: #f45f02;
+      color: #0a0a0a;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background: #ff8a00;
+      transform: translateY(-2px);
+    }
+
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .notice {
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #fca5a5;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* HONEYPOT PROTECTION */
+
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    /* SUCCESS SCREEN */
+
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 35px 15px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .success-screen.show {
+      display: block;
+    }
+
+    .success-icon {
+      width: 85px;
+      height: 85px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: rgba(74,222,128,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4ade80;
+      font-size: 42px;
+      animation: popIn 0.5s cubic-bezier(.17,.67,.3,1.5);
+    }
+
+    .success-screen h2 {
+      color: #4ade80;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .success-screen p {
+      color: #9ca3af;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .success-line {
+      width: 0;
+      height: 3px;
+      background: #4ade80;
+      margin: 22px auto 0;
+      border-radius: 10px;
+      animation: lineGrow 0.8s ease forwards 0.4s;
+    }
+
+    /* ERROR MESSAGE */
+
+    .submit-error {
+      display: none;
+      color: #fca5a5;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .submit-error.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* ===== TRANSLATION SUPPORT ===== */
+    .ar-text {
+      display: none;
+    }
+
+    body.arabic-mode {
+      direction: rtl;
+      font-family: 'Tajawal', 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+    }
+
+    body.arabic-mode .en-text {
+      display: none;
+    }
+
+    body.arabic-mode .ar-text {
+      display: revert;
+    }
+
+    body.arabic-mode .back i {
+      transform: scaleX(-1);
+    }
+
+    body.arabic-mode .apply-meta i {
+      margin-right: 0;
+      margin-left: 4px;
+    }
+
+    /* Force LTR for the brand name inside Arabic sentences */
+    body.arabic-mode .success-screen strong {
+      display: inline-block;
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lineGrow {
+      to { width: 90px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="apply-card">
+
+    <!-- BACK BUTTON -->
+    <a class="back" href="index.html">
+      <i class="fas fa-arrow-left"></i>
+      <span class="en-text">Back to events</span>
+      <span class="ar-text">العودة إلى الأحداث</span>
+    </a>
+
+    <!-- EVENT INFORMATION -->
+    <h1 id="eventTitle">Loading...</h1>
+    <div class="apply-meta" id="eventMeta"></div>
+
+    <!-- CLOSED NOTICE -->
+    <div id="closedNotice" class="notice hidden">
+      <i class="fas fa-lock"></i>
+      <span class="en-text">Registration for this event is closed.</span>
+      <span class="ar-text">التسجيل لهذا الحدث مغلق.</span>
+    </div>
+
+    <!-- EVENT ERROR -->
+    <div id="errorNotice" class="notice hidden">
+      <i class="fas fa-triangle-exclamation"></i>
+      <span class="en-text">Event not found. Please go back and select an event.</span>
+      <span class="ar-text">الحدث غير موجود. يرجى الرجوع واختيار حدث.</span>
+    </div>
+
+    <!-- APPLICATION FORM -->
+    <form id="applyForm" action="https://formspree.io/f/xoeebnog" method="POST">
+      <input type="hidden" name="Event" id="eventField">
+
+      <label for="ign">
+        <span class="en-text">In-game name</span>
+        <span class="ar-text">الاسم داخل اللعبة</span>
+      </label>
+      <input type="text" id="ign" name="In Game name" data-placeholder-en="e.g. LR REY" data-placeholder-ar="مثال: LR REY" placeholder="e.g. LR REY" maxlength="30" required>
+
+      <label for="uid">
+        <span class="en-text">Free Fire UID</span>
+        <span class="ar-text">الأيدي</span>
+      </label>
+      <input type="text" id="uid" name="FREE FIRE UID" data-placeholder-en="Your numeric UID" data-placeholder-ar="الأيدي" placeholder="Your numeric UID" inputmode="numeric" pattern="[0-9]{9,12}" minlength="9" maxlength="12" title="Enter a 9–12 digit Free Fire UID" required>
+
+      <!-- HONEYPOT PROTECTION -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="honeypot">Leave this field empty</label>
+        <input type="text" id="honeypot" name="_gotcha" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <button type="submit" id="submitBtn">
+        <i class="fas fa-paper-plane"></i>
+        <span class="en-text">Submit application</span>
+        <span class="ar-text">إرسال الطلب</span>
+      </button>
+    </form>
+
+    <!-- SUCCESS ANIMATION -->
+    <div id="successScreen" class="success-screen">
+      <div class="success-icon">
+        <i class="fas fa-check"></i>
+      </div>
+      <h2>
+        <span class="en-text">Application Submitted!</span>
+        <span class="ar-text">تم إرسال الطلب!</span>
+      </h2>
+      <p>
+        <span class="en-text">Your application has been successfully received.<br>The <strong>Los Reyes</strong> team will review your registration.</span>
+        <span class="ar-text">تم استلام طلبك بنجاح.<br>سيراجع فريق <strong>Los Reyes</strong> تسجيلك.</span>
+      </p>
+      <div class="success-line"></div>
+      <p style="margin-top:22px;">
+        <span class="en-text">Thank you for participating! 🔥</span>
+        <span class="ar-text">شكراً لمشاركتك! 🔥</span>
+      </p>
+    </div>
+
+    <!-- ERROR MESSAGE -->
+    <div id="submitError" class="submit-error"></div>
+
+  </div>
+
+  <script>
+    const currentLang = localStorage.getItem("losReyesLang") === "ar" ? "ar" : "en";
+
+    if (currentLang === "ar") {
+      document.body.classList.add("arabic-mode");
+      document.body.setAttribute("dir", "rtl");
+      document.documentElement.setAttribute("lang", "ar");
+    } else {
+      document.body.setAttribute("dir", "ltr");
+      document.documentElement.setAttribute("lang", "en");
+    }
+
+    const EVENTS = {
+      "guild-tournament": {
+        title: "💎 Diamond Tournament",
+        titleAr: "💎 بطولة الجواهر",
+        meta: "Nov 14, 18:30 · Bermuda · The Prize: 1000 Dimond",
+        metaAr: "14 نوفمبر، 18:30 · برمودا · الجائزة: 1000 جوهرة",
+        closed: false
+      },
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("event");
+    let ev = EVENTS[slug];
+
+    if (!ev && (location.hostname === "127.0.0.1" || location.hostname === "localhost")) {
+      ev = EVENTS["guild-tournament"];
+    }
+
+    const titleEl = document.getElementById("eventTitle");
+    const metaEl = document.getElementById("eventMeta");
+    const formEl = document.getElementById("applyForm");
+    const closedEl = document.getElementById("closedNotice");
+    const errorEl = document.getElementById("errorNotice");
+    const eventField = document.getElementById("eventField");
+    const submitBtn = document.getElementById("submitBtn");
+    const successScreen = document.getElementById("successScreen");
+    const submitError = document.getElementById("submitError");
+    const ignInput = document.getElementById("ign");
+    const uidInput = document.getElementById("uid");
+
+    function t(en, ar) {
+      return currentLang === "ar" ? ar : en;
+    }
+
+    ignInput.placeholder = currentLang === "ar" ? ignInput.dataset.placeholderAr : ignInput.dataset.placeholderEn;
+    uidInput.placeholder = currentLang === "ar" ? uidInput.dataset.placeholderAr : uidInput.dataset.placeholderEn;
+
+    if (!ev) {
+      titleEl.textContent = t("Event not found", "الحدث غير موجود");
+      metaEl.textContent = t("Please select an event from the events page.", "يرجى اختيار حدث من صفحة الأحداث.");
+      errorEl.classList.remove("hidden");
+      formEl.classList.add("hidden");
+    } else {
+      titleEl.textContent = currentLang === "ar" ? (ev.titleAr || ev.title) : ev.title;
+      metaEl.textContent = currentLang === "ar" ? (ev.metaAr || ev.meta) : ev.meta;
+      eventField.value = ev.title;
+      if (ev.closed) {
+        closedEl.classList.remove("hidden");
+        formEl.classList.add("hidden");
+      }
+    }
+
+    formEl.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      if (!formEl.reportValidity()) return;
+
+      const ign = ignInput.value.trim();
+      const uid = uidInput.value.trim();
+
+      if (!ign || !/^\d{9,12}$/.test(uid)) {
+        submitError.textContent = t(
+          "Please enter a valid In-game name and Free Fire UID (9–12 digits).",
+          "يرجى إدخال اسم داخل اللعبة صالح ومعرف فري فاير (9–12 رقمًا)."
+        );
+        submitError.classList.add("show");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = t(
+        '<i class="fas fa-spinner fa-spin"></i> Sending application...',
+        '<i class="fas fa-spinner fa-spin"></i> جارٍ إرسال الطلب...'
+      );
+      submitError.classList.remove("show");
+
+      try {
+        const response = await fetch(formEl.action, {
+          method: "POST",
+          body: new FormData(formEl),
+          headers: { "Accept": "application/json" }
+        });
+
+        if (response.ok) {
+          if (typeof window.addSlot === 'function') window.addSlot();
+          formEl.classList.add("hidden");
+          successScreen.classList.add("show");
+        } else {
+          let errorMessage = t("Something went wrong. Please try again.", "حدث خطأ ما. يرجى المحاولة مرة أخرى.");
+          try {
+            const result = await response.json();
+            if (result.errors && result.errors.length) {
+              errorMessage = result.errors.map(error => error.message).join(" ");
+            }
+          } catch (parseError) {}
+          throw new Error(errorMessage);
+        }
+      } catch (error) {
+        submitError.textContent = error.message === "Failed to fetch"
+            ? t("Network error. Please check your internet connection and try again.", "خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.")
+            : error.message;
+        submitError.classList.add("show");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> ' + t("Submit application", "إرسال الطلب");
+      }
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwmFPI4lMdAKXf62IIlA7Haj4Jw3-pHGc",
+      authDomain: "los-reyes-7c624.firebaseapp.com",
+      projectId: "los-reyes-7c624",
+      storageBucket: "los-reyes-7c624.firebasestorage.app",
+      messagingSenderId: "850765464415",
+      appId: "1:850765464415:web:0197fa45ccf28a6f34ecea",
+      measurementId: "G-R18Q6D0MGM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const eventRef = doc(db, "events", "guild-tournament");
+
+    window.addSlot = async function() {
+      try {
+        await updateDoc(eventRef, { slots: increment(1) });
+        console.log("Slot successfully added!");
+      } catch (error) {
+        console.error("Error updating slots:", error);
+      }
+    };
+  </script>
+
+</body>
+</html>
