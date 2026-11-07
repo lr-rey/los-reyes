@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Reyes — Profile</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--pri:#ff6b2b;--priD:#e0551a;--priL:#ff9f6b;--priG:rgba(255,107,43,.4);
+--gld:#f5b042;--gldL:#ffd966;--gldG:rgba(245,176,66,.4);
+--bg0:#06090e;--bg1:#0b0e14;--bg2:#121a24;--bg3:#19232e;--bg4:#1f2c3a;
+--bd1:#26323f;--bd2:#2d3b48;--bd3:#334454;
+--txt:#e9f1f7;--txt2:#a7bccd;--txt3:#6b8399;
+--ok:#2ecc71;--warn:#f5b042;--err:#e74c3c;
+--rM:1rem;--rL:1.8rem;--rX:2.5rem;--rP:60px;
+--shL:0 20px 40px rgba(0,0,0,.6);
+--fD:'Orbitron',sans-serif;--fB:'Rajdhani',sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+background:var(--bg0);
+background-image:radial-gradient(ellipse at 20% 0%,rgba(245,176,66,.08),transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(255,107,43,.05),transparent 50%);
+background-attachment:fixed;
+color:var(--txt);
+font-family:var(--fB);
+line-height:1.6;
+padding:20px;
+min-height:100vh;
+}
+
+/* ===== TRANSLATION SUPPORT ===== */
+.ar-text { display: none; }
+
+body.arabic-mode {
+  direction: rtl;
+  font-family: 'Tajawal', 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+}
+
+body.arabic-mode .en-text { display: none; }
+body.arabic-mode .ar-text { display: revert; }
+
+body.arabic-mode .back i { transform: scaleX(-1); }
+body.arabic-mode .pBack i { transform: scaleX(-1); }
+
+/* Force LTR for player names and brand name */
+body.arabic-mode .pName,
+body.arabic-mode .not-found h2,
+body.arabic-mode .pStatV {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.back{
+display:inline-flex;
+align-items:center;
+gap:8px;
+color:var(--txt2);
+text-decoration:none;
+font-weight:600;
+font-size:.95rem;
+margin-bottom:20px;
+padding:8px 18px;
+border-radius:var(--rP);
+border:1px solid var(--bd2);
+background:var(--bg2);
+transition:.2s;
+}
+
+.back:hover{color:var(--gld);border-color:var(--gld)}
+
+.wrap{max-width:1400px;margin:auto}
+
+.profile{
+max-width:850px;
+margin:0 auto;
+background:var(--bg2);
+border-radius:var(--rX);
+box-shadow:var(--shL),0 0 0 1px var(--bd1) inset;
+padding:3rem 2.5rem;
+position:relative;
+overflow:hidden;
+text-align:center;
+animation:fin .8s ease;
+}
+
+.profile::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:4px;
+background:linear-gradient(90deg,transparent,var(--gld),var(--pri),var(--gld),transparent);
+background-size:200% 100%;
+animation:flow 4s linear infinite;
+}
+
+@keyframes fin{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes flow{
+0%{background-position:0 0}
+100%{background-position:200% 0}
+}
+
+.avatar-wrap{
+position:relative;
+width:180px;
+height:180px;
+margin:0 auto 1.5rem;
+}
+
+.avatar{
+width:100%;
+height:100%;
+border-radius:50%;
+object-fit:cover;
+object-position:center top;
+border:4px solid var(--gld);
+box-shadow:0 0 30px var(--gldG),0 0 0 8px rgba(245,176,66,.1);
+background:var(--bg4);
+display:block;
+}
+
+.avatar-wrap .dot{
+position:absolute;
+bottom:12px;
+right:12px;
+width:22px;
+height:22px;
+background:var(--ok);
+border:3px solid var(--bg2);
+border-radius:50%;
+box-shadow:0 0 10px rgba(46,204,113,.7);
+}
+
+body.arabic-mode .avatar-wrap .dot {
+  right: auto;
+  left: 12px;
+}
+
+.avatar-wrap .dot.away{
+background:var(--warn);
+box-shadow:0 0 10px rgba(245,176,66,.7);
+}
+
+.avatar-wrap .dot.off{
+background:var(--txt3);
+box-shadow:none;
+}
+
+.pName{
+font-family:var(--fD);
+font-size:2.2rem;
+font-weight:900;
+letter-spacing:3px;
+text-transform:uppercase;
+line-height:1.2;
+margin-bottom:.6rem;
+background:linear-gradient(135deg,#fff,var(--gldL) 50%,var(--gld));
+-webkit-background-clip:text;
+background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.pRole{
+display:inline-block;
+padding:6px 20px;
+border-radius:var(--rP);
+font-size:.8rem;
+font-weight:700;
+letter-spacing:1.5px;
+text-transform:uppercase;
+border:1px solid;
+background:rgba(245,176,66,.28);
+color:var(--gldL);
+border-color:var(--gld);
+}
+
+.pRole.co{background:rgba(255,107,43,.22);color:var(--priL);border-color:var(--pri)}
+.pRole.of{background:rgba(59,143,194,.15);color:#7bc8ff;border-color:rgba(59,143,194,.5)}
+.pRole.mb{background:rgba(77,107,124,.15);color:#b4d0e0;border-color:rgba(77,107,124,.5)}
+
+.pStats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:1rem;
+margin-top:2rem;
+}
+
+.pStat{
+background:var(--bg3);
+border:1px solid var(--bd2);
+border-radius:var(--rM);
+padding:1.2rem .8rem;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+}
+
+.pStatI{font-size:1.5rem;color:var(--gld)}
+.pStatV{font-family:var(--fD);font-size:1.5rem;font-weight:800;color:#fff;line-height:1}
+.pStatL{font-size:.72rem;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+body.arabic-mode .pStatL { letter-spacing: 0; text-transform: none; }
+
+/* LARGE MEMBER IMAGE */
+.extra-image{
+width:100%;
+margin:35px auto 10px;
+}
+
+.extra-image img {
+    width: 100%;
+    max-width: 2712px;
+    height: auto;
+    aspect-ratio: 2712 / 1220;
+    object-fit: contain;
+    border-radius: 20px;
+    display: block;
+    margin: auto;
+    border: 2px solid var(--gld);
+    box-shadow: 0 0 25px var(--gldG);
+}
+
+.pBack{
+display:inline-flex;
+align-items:center;
+gap:10px;
+margin-top:2rem;
+padding:.9rem 2rem;
+background:linear-gradient(135deg,var(--gld),var(--priD));
+color:var(--bg0);
+text-decoration:none;
+font-family:var(--fD);
+font-weight:800;
+font-size:.95rem;
+letter-spacing:1px;
+text-transform:uppercase;
+border-radius:var(--rP);
+border:1px solid var(--gldL);
+box-shadow:0 6px 14px rgba(245,176,66,.3);
+transition:.25s;
+}
+
+body.arabic-mode .pBack { letter-spacing: 0; }
+
+.pBack:hover{
+background:linear-gradient(135deg,var(--gldL),var(--gld));
+transform:translateY(-2px);
+box-shadow:0 10px 24px var(--gldG);
+}
+
+.not-found{text-align:center;padding:3rem;color:var(--txt2)}
+.not-found h2{font-family:var(--fD);color:var(--gld);margin-bottom:1rem}
+
+@media(max-width:600px){
+body{padding:10px}
+.profile{padding:2rem 1.2rem;border-radius:var(--rL)}
+.avatar-wrap{width:140px;height:140px}
+.pName{font-size:1.6rem;letter-spacing:2px}
+.pStatV{font-size:1.3rem}
+.extra-image img{height:300px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+<a class="back" href="index.html">
+<i class="fas fa-arrow-left"></i> 
+<span class="en-text">Back to Guild</span>
+<span class="ar-text">العودة إلى الرابطة</span>
+</a>
+
+<div id="profileCard"></div>
+</div>
+
+<script>
+
+// ==================================
+// READ LANGUAGE FROM MAIN PAGE
+// ==================================
+const currentLang = localStorage.getItem("losReyesLang") === "ar" ? "ar" : "en";
+
+if (currentLang === "ar") {
+  document.body.classList.add("arabic-mode");
+  document.body.setAttribute("dir", "rtl");
+  document.documentElement.setAttribute("lang", "ar");
+} else {
+  document.body.setAttribute("dir", "ltr");
+  document.documentElement.setAttribute("lang", "en");
+}
+
+// Helper function for translation
+function t(en, ar) {
+  return currentLang === "ar" ? ar : en;
+}
+
+/* ===== MEMBER DATA ===== */
+
+var members = {
+
+'lr-rey': {
+name: 'LR REY',
+role: 'Leader',
+roleAr: 'القائد',
+roleClass: '',
+level: 84,
+kd: 5.7,
+role2: 'Sniper',
+role2Ar: 'قناص',
+wins: 48,
+extraImg: 'images/rey.jpg',
+img: 'images/rey.profile.jpg',
+status: 'online'
+},
+
+'lr-guts': {
+name: 'LR GUTS',
+role: 'Co-Leader',
+roleAr: 'نائب القائد',
+roleClass: 'co',
+level: 69,
+kd: 1.6,
+role2: 'Support',
+role2Ar: 'دعم',
+wins: 16,
+extraImg: 'images/guts.jpg',
+img: 'images/guts.profile.jpg',
+status: 'online'
+},
+
+'lr-kosta': {
+name: 'LR KOSTA',
+role: 'Officer',
+roleAr: 'ضابط',
+roleClass: 'of',
+level: 72,
+kd: 6.7,
+role2: 'Rusher',
+role2Ar: 'مهاجم',
+wins: 4,
+extraImg: 'images/kosta.jpg',
+img: 'images/kosta.profile.jpeg',
+status: 'online'
+},
+
+'lr-duxx': {
+name: 'LR DUXX',
+role: 'o-Member',
+roleAr: 'عضو',
+roleClass: 'of',
+level: 71,
+kd: 2.3,
+role2: 'Rusher',
+role2Ar: 'مهاجم',
+wins: 1,
+extraImg: 'images/duxx.jpg',
+img: 'images/duxx.jpg.jpeg',
+status: 'away'
+},
+
+'lr-yahya': {
+name: 'LR YAHYA',
+role: 'o-Member',
+roleAr: 'عضو',
+roleClass: 'of',
+level: 59,
+kd: 4.1,
+role2: 'Support',
+role2Ar: 'دعم',
+wins: 3,
+extraImg: 'images/yahya.jpeg',
+img: 'images/yahya.profile.jpeg', 
+status: 'online'
+},
+
+'lr-mohammed': {
+name: 'LR MOHAMMED',
+role: 'Member',
+roleAr: 'عضو',
+roleClass: 'of',
+level: 70,
+kd: 6.5,
+role2: 'Support',
+role2Ar: 'دعم',
+wins: 2,
+extraImg: 'images/mohammed.jpeg',
+img: 'images/mohammed.profile.jpeg',
+status: 'online'
+},
+
+'lr-hicham': {
+name: 'LR HICHAM',
+role: 'Member',
+roleAr: 'عضو',
+roleClass: 'of',
+level: 58,
+kd: 2.3,
+role2: 'Support',
+role2Ar: 'دعم',
+wins: 2,
+extraImg: 'images/hicham.jpeg',
+img: 'images/hicham.profile.jpeg',
+status: 'online'
+},
+
+'lr-obama': {
+name: 'LR OBAMA',
+role: 'Member',
+roleAr: 'عضو',
+roleClass: 'of',
+level: 67,
+kd: 4.0,
+role2: 'Rusher',
+role2Ar: 'مهاجم',
+wins: 1,
+extraImg: 'images/obama.jpeg',
+img: 'images/obama.profile.jpeg',
+status: 'online'
+},
+
+};
+
+/* ===== RENDER PROFILE ===== */
+
+function renderProfile(){
+
+var params = new URLSearchParams(window.location.search);
+var id = params.get('id') || 'lr-rey';
+var m = members[id];
+var container = document.getElementById('profileCard');
+
+if(!m){
+container.innerHTML =
+'<div class="not-found">' +
+'<h2><i class="fas fa-user-slash"></i> ' + t('Member Not Found', 'العضو غير موجود') + '</h2>' +
+'<p>' + t('This member does not exist or the link is invalid.', 'هذا العضو غير موجود أو الرابط غير صالح.') + '</p>' +
+'<a class="pBack" href="index.html"><i class="fas fa-arrow-left"></i> ' + t('Back to Guild', 'العودة إلى الرابطة') + '</a>' +
+'</div>';
+
+document.title = t('Member Not Found', 'العضو غير موجود') + ' — Los Reyes';
+return;
+}
+
+document.title = m.name + ' — Los Reyes Profile';
+
+var dotClass = 'dot' + (m.status === 'away' ? ' away' : m.status === 'offline' ? ' off' : '');
+
+// Translations for labels
+var lblLevel = t('Level', 'المستوى');
+var lblKD = t('K/D Ratio', 'نسبة القتل');
+var lblRole = t('Playstyle', 'أسلوب اللعب');
+var lblWins = t('Wins', 'الانتصارات');
+var currentRole = currentLang === 'ar' ? (m.roleAr || m.role) : m.role;
+var currentRole2 = currentLang === 'ar' ? (m.role2Ar || m.role2) : m.role2;
+
+container.innerHTML =
+'<div class="profile">' +
+
+'<div class="avatar-wrap">' +
+'<img class="avatar" src="' + m.img + '" alt="' + m.name + '">' +
+'<span class="' + dotClass + '"></span>' +
+'</div>' +
+
+'<h1 class="pName">' + m.name + '</h1>' +
+'<span class="pRole ' + m.roleClass + '">' + currentRole + '</span>' +
+
+'<div class="pStats">' +
+
+'<div class="pStat">' +
+'<i class="fas fa-level-up-alt pStatI"></i>' +
+'<span class="pStatV">' + m.level + '</span>' +
+'<span class="pStatL">' + lblLevel + '</span>' +
+'</div>' +
+
+'<div class="pStat">' +
+'<i class="fas fa-skull pStatI"></i>' +
+'<span class="pStatV">' + m.kd + '</span>' +
+'<span class="pStatL">' + lblKD + '</span>' +
+'</div>' +
+
+'<div class="pStat">' +
+'<i class="fas fa-crosshairs pStatI"></i>' +
+'<span class="pStatV">' + currentRole2 + '</span>' +
+'<span class="pStatL">' + lblRole + '</span>' +
+'</div>' +
+
+'<div class="pStat">' +
+'<i class="fas fa-trophy pStatI"></i>' +
+'<span class="pStatV">' + m.wins + '</span>' +
+'<span class="pStatL">' + lblWins + '</span>' +
+'</div>' +
+
+'</div>' +
+
+(m.extraImg ?
+'<div class="extra-image">' +
+'<img src="' + m.extraImg + '" alt="' + m.name + ' large image">' +
+'</div>'
+: '') +
+
+'<a class="pBack" href="index.html"><i class="fas fa-arrow-left"></i> ' + t('Back to Guild', 'العودة إلى الرابطة') + '</a>' +
+
+'</div>';
+
+}
+
+renderProfile();
+
+</script>
+
+</body>
+</html>

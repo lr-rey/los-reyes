@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Reyes · Elite Free Fire Guild</title>
+<link rel="icon" type="image/jpeg" href="images/favcon.jpg.jpeg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+--pri:#ff6b2b;--priD:#e0551a;--priL:#ff9f6b;--priG:rgba(255,107,43,.4);
+--gld:#f5b042;--gldL:#ffd966;--gldG:rgba(245,176,66,.4);
+--bg0:#06090e;--bg1:#0b0e14;--bg2:#121a24;--bg3:#19232e;--bg4:#1f2c3a;
+--bd1:#26323f;--bd2:#2d3b48;--bd3:#334454;
+--txt:#e9f1f7;--txt2:#a7bccd;--txt3:#6b8399;
+--ok:#2ecc71;--warn:#f5b042;--err:#e74c3c;
+--dis:#5865F2;--yt:#FF0000;--ig:#E1306C;--tk:#FE2C55;--tw:#1DA1F2;--tv:#9146FF;--wa:#25D366;--tg:#0088cc;
+--rM:1rem;--rL:1.8rem;--rX:2.5rem;--rP:60px;
+--shM:0 8px 18px rgba(0,0,0,.4);--shL:0 20px 40px rgba(0,0,0,.6);
+--fD:'Orbitron',sans-serif;--fB:'Rajdhani',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+background:var(--bg0);
+background-image:radial-gradient(ellipse at 20% 0%,rgba(245,176,66,.08),transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(255,107,43,.05),transparent 50%);
+background-attachment:fixed;color:var(--txt);font-family:var(--fB);line-height:1.6;padding:20px;
+min-height:100vh;
+min-height:100dvh; /* FIX: Better mobile viewport */
+overflow-x:hidden; /* FIX: Prevent horizontal scrolling */
+width:100%;
+}
+::selection{background:var(--pri);color:var(--bg0)}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gld),var(--priD));border-radius:6px;border:2px solid var(--bg1)}
+:focus-visible{outline:2px solid var(--gldL);outline-offset:3px}
+
+.wrap{max-width:1400px;margin:auto;background:var(--bg2);border-radius:var(--rX);box-shadow:var(--shL),0 0 0 1px var(--bd1) inset;padding:2.5rem 3rem;position:relative;overflow:hidden;animation:fin .8s ease}
+.wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gld),var(--pri),var(--gld),transparent);background-size:200% 100%;animation:flow 4s linear infinite}
+@keyframes fin{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes flow{0%{background-position:0 0}100%{background-position:200% 0}}
+
+.hdr{display:flex;align-items:center;gap:20px;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:2px solid var(--gld);position:relative;flex-wrap:wrap}
+.hdr::after{content:'';position:absolute;bottom:-2px;left:0;width:30%;height:2px;background:linear-gradient(90deg,var(--gldL),transparent);box-shadow:0 0 12px var(--gld)}
+
+.logo{width:80px;height:80px;background:transparent;border-radius:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:pulse 3s ease-in-out infinite;position:relative;overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:contain;border-radius:20px;display:block}
+@keyframes pulse{0%,100%{box-shadow:0 0 12px var(--gldG)}50%{box-shadow:0 0 24px var(--gld), 0 0 0 3px rgba(245,176,66,.4)}}
+
+.title-group{display:flex;flex-direction:column;gap:4px}
+.hdr h1{font-family:var(--fD);font-size:2.6rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;line-height:1.1;background:linear-gradient(135deg,#fff,var(--gldL) 50%,var(--gld));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tgl{font-size:.9rem;color:var(--txt2);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px}
+.tgl i{color:var(--gld);font-size:.8rem}
+.badges{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.bd{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--rP);font-size:.82rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border:1px solid}
+.bdG{background:rgba(245,176,66,.12);color:var(--gldL);border-color:rgba(245,176,66,.4)}
+
+/* Green Language Button */
+.lang-switch{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:var(--rP);
+  font-family:var(--fB);font-weight:700;font-size:.82rem;
+  letter-spacing:.5px;text-transform:uppercase;cursor:pointer;
+  background:rgba(46,204,113,.12);color:#2ecc71;
+  border:1px solid rgba(46,204,113,.4);
+  transition:.2s;
+}
+.lang-switch:hover{
+  background:#2ecc71;color:var(--bg0);border-color:#2ecc71;
+  box-shadow:0 0 18px rgba(46,204,113,.4);
+}
+.lang-switch i{font-size:.95rem}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.2rem;margin-bottom:2.5rem;padding:1.5rem;background:var(--bg3);border-radius:var(--rL);border:1px solid var(--bd1)}
+.st{display:flex;align-items:center;gap:14px;padding:.5rem}
+.stI{width:48px;height:48px;background:linear-gradient(135deg,rgba(245,176,66,.2),rgba(245,176,66,.05));border:1px solid rgba(245,176,66,.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--gld);flex-shrink:0}
+.stC{display:flex;flex-direction:column}
+.stV{font-family:var(--fD);font-size:1.5rem;font-weight:800;line-height:1.2}
+.stL{font-size:.78rem;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.card{background:var(--bg1);border-radius:var(--rL);border:1px solid var(--bd1);box-shadow:var(--shM);padding:1.8rem 2rem;transition:.25s;overflow:hidden}
+.card:hover{border-color:rgba(245,176,66,.4);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.card h2,.apC h2,.soC h2{display:flex;align-items:center;gap:14px;font-family:var(--fD);font-size:1.4rem;font-weight:700;margin-bottom:1.5rem;color:#fff;text-transform:uppercase;letter-spacing:1px;padding-left:1rem;position:relative}
+.card h2::before,.apC h2::before,.soC h2::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:5px;height:70%;background:linear-gradient(180deg,var(--gld),var(--pri));border-radius:3px;box-shadow:0 0 10px var(--gldG)}
+.card h2 i,.apC h2 i,.soC h2 i{color:var(--gld);font-size:1.3rem;width:1.6rem;text-align:center}
+
+.ml{display:flex;flex-direction:column;gap:1.4rem;max-height:900px;overflow-y:auto;padding:.4rem 8px .4rem 2px}
+.ml::-webkit-scrollbar{width:6px}.ml::-webkit-scrollbar-thumb{background:var(--gld);border-radius:3px}
+.m{display:flex;align-items:center;gap:26px;background:var(--bg3);padding:1.15rem 1.6rem;border-radius:var(--rP);border:1px solid var(--bd2);transition:.15s}
+.m:hover{background:var(--bg4);border-color:rgba(245,176,66,.5);transform:translateX(4px)}
+
+/* CARD BACKGROUND TINTS */
+.mL{border-color:rgba(245,176,66,.5);background:linear-gradient(90deg,rgba(245,176,66,.08),var(--bg3))}
+.mCo{border-color:rgba(205,127,50,.5);background:linear-gradient(90deg,rgba(205,127,50,.08),var(--bg3))}
+.mC{border-color:rgba(176,196,222,.5);background:linear-gradient(90deg,rgba(176,196,222,.08),var(--bg3))}
+
+.av{width:70px;height:70px;background:linear-gradient(135deg,var(--bg4),var(--bg2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;border:3px solid var(--gld);color:var(--gldL);flex-shrink:0;position:relative;transition:.15s;margin-right:10px;overflow:visible;padding:0}
+.av a{display:block;width:100%;height:100%;border-radius:50%;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;transition:.25s}
+.m:hover .av img{transform:scale(1.08)}
+.m:hover .av{box-shadow:0 0 20px var(--gldG);transform:scale(1.05)}
+.dot{position:absolute;bottom:0;right:0;width:14px;height:14px;background:var(--ok);border:2px solid var(--bg3);border-radius:50%;z-index:3;box-shadow:0 0 6px rgba(46,204,113,.6)}
+.dot.off{background:var(--txt3);box-shadow:none}
+.dot.aw{background:var(--warn);box-shadow:0 0 6px rgba(245,176,66,.6)}
+
+/* RING COLORS */
+.mL .av{border-color:#ffd966;box-shadow:0 0 14px rgba(255, 217, 102, 0.6)}
+.mCo .av{border-color:#cd7f32;box-shadow:0 0 14px rgba(205, 127, 50, 0.6)}
+.mC .av{border-color:#b0c4de;box-shadow:0 0 14px rgba(176, 196, 222, 0.6)}
+
+.mi{flex:1;min-width:0}
+.mn{font-weight:700;font-size:1.15rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mn a{color:inherit;text-decoration:none}
+.mn a:hover{color:var(--gldL)}
+.mr{font-size:.68rem;font-weight:700;padding:3px 12px;border-radius:var(--rP);letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;border:1px solid}
+
+/* BADGE COLORS */
+.rL{background:rgba(245,176,66,.28);color:var(--gldL);border-color:var(--gld)}
+
+/* GOLD LEADER BADGE */
+.rC {
+  background: linear-gradient(135deg, #ffd966, #f5b042); 
+  color: #0a0a0a; 
+  border-color: #ffd966; 
+  box-shadow: 0 0 12px rgba(255, 217, 102, 0.6); 
+  font-weight: 800; 
+  text-shadow: none;
+}
+
+/* BRONZE CO-LEADER BADGE */
+.rCo {
+  background: linear-gradient(135deg, #cd7f32, #a35a1a); 
+  color: #fff; 
+  border-color: #cd7f32; 
+  box-shadow: 0 0 12px rgba(205, 127, 50, 0.6);
+  font-weight: 800;
+  text-shadow: none;
+}
+
+/* SILVER OFFICER BADGE */
+.rO {
+  background: linear-gradient(135deg, #e2e8f0, #b0c4de); 
+  color: #0a0a0a; 
+  border-color: #e2e8f0; 
+  box-shadow: 0 0 12px rgba(226, 232, 240, 0.6);
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.rM{background:rgba(77,107,124,.15);color:#b4d0e0;border-color:rgba(77,107,124,.5)}
+.ms{display:flex;gap:18px;font-size:.82rem;color:var(--txt3);margin-top:4px;flex-wrap:wrap}
+.ms span{display:flex;align-items:center;gap:5px}
+.ms i{color:var(--gld);font-size:.72rem}
+.ma{display:flex;gap:8px;opacity:0;transition:.15s;margin-left:10px}
+.m:hover .ma,.ma:focus-within{opacity:1}
+.ma .profile-btn{background:transparent;border:1px solid var(--bd3);color:var(--txt2);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;text-decoration:none}
+.ma .profile-btn:hover{background:var(--gld);border-color:var(--gld);color:var(--bg0)}
+
+.el{display:flex;flex-direction:column;gap:1.1rem}
+.e{background:var(--bg3);border-radius:var(--rM);padding:1.1rem 1.3rem;border:1px solid var(--bd2);border-left:5px solid var(--gld);transition:.15s}
+.e:hover{background:var(--bg4);border-color:rgba(245,176,66,.5);border-left-color:var(--gldL);transform:translateX(4px)}
+.et{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.en{font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:8px}
+.ed{background:rgba(245,176,66,.15);padding:5px 14px;border-radius:var(--rP);font-size:.75rem;font-weight:600;color:var(--gldL);border:1px solid rgba(245,176,66,.35);white-space:nowrap;display:flex;align-items:center;gap:6px}
+.eds{font-size:.88rem;color:var(--txt2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.eds i{color:var(--gld);width:16px;text-align:center}
+.em{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap}
+.em span{display:flex;align-items:center;gap:5px;font-size:.78rem;color:var(--txt3)}
+.em i{color:var(--gld);font-size:.72rem}
+.ep{margin-top:10px;height:4px;background:var(--bg0);border-radius:2px;overflow:hidden}
+.epb{height:100%;background:linear-gradient(90deg,var(--gld),var(--pri));border-radius:2px;width:0%;transition:width 1s ease-in-out}
+.es{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 10px;border-radius:var(--rP);margin-top:6px;border:1px solid}
+.es.o{background:rgba(46,204,113,.15);color:var(--ok);border-color:rgba(46,204,113,.4)}
+.es.c{background:rgba(231,76,60,.15);color:var(--err);border-color:rgba(231,76,60,.4)}
+.es.f{background:rgba(245,176,66,.15);color:var(--warn);border-color:rgba(245,176,66,.4)}
+.eapply{display:inline-flex;align-items:center;gap:8px;margin:10px 0 0 10px;padding:6px 16px;border-radius:var(--rP);background:linear-gradient(135deg,var(--gld),var(--priD));color:var(--bg0);font-weight:700;font-size:.8rem;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;transition:.15s}
+.eapply:hover{transform:translateY(-2px);box-shadow:0 6px 14px var(--gldG)}
+.eapply.disabled{background:var(--bg4);color:var(--txt3);pointer-events:none}
+
+.apS{grid-column:1/-1;margin-top:1.8rem}
+.apC{background:linear-gradient(145deg,var(--bg2),var(--bg1));border-radius:var(--rL);border:1px solid var(--bd2);padding:2.2rem 2.5rem}
+.apI{color:var(--txt2);font-size:1rem;margin-bottom:1.8rem;max-width:700px}
+.apI strong{color:var(--gldL)}
+.af{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.fg{display:flex;flex-direction:column;gap:8px}
+.fg.fw{grid-column:1/-1}
+.fg label{font-weight:600;font-size:.88rem;color:var(--txt2);letter-spacing:.5px;display:flex;align-items:center;gap:8px;text-transform:uppercase}
+.fg label i{color:var(--gld);width:18px;text-align:center}
+.req{color:var(--err)}
+.fg input,.fg select,.fg textarea{background:var(--bg4);border:1px solid var(--bd3);border-radius:var(--rP);padding:.85rem 1.4rem;font-size:16px;color:var(--txt);outline:none;transition:.15s;font-family:var(--fB);font-weight:500;width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gld);box-shadow:0 0 0 3px rgba(245,176,66,.15);background:var(--bg3)}
+.fg textarea{border-radius:var(--rM);resize:vertical;min-height:100px;padding:1rem 1.4rem}
+.fg select{cursor:pointer;appearance:none;-webkit-appearance:none;padding-right:2.8rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23f5b042' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1.2rem center}
+.fg select option{background:var(--bg3);color:var(--txt)}
+.hint{font-size:.72rem;color:var(--txt3);padding-left:1.2rem}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ff{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-top:.6rem;flex-wrap:wrap;gap:1rem}
+.ft{font-size:.78rem;color:var(--txt3);display:flex;align-items:center;gap:6px}
+.ft i{color:var(--gld)}
+.btn{background:linear-gradient(135deg,var(--gld),var(--priD));color:var(--bg0);font-weight:800;font-size:1rem;font-family:var(--fD);border:1px solid var(--gldL);border-radius:var(--rP);padding:1rem 2.4rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:.25s;letter-spacing:1px;box-shadow:0 6px 14px rgba(245,176,66,.3);text-transform:uppercase}
+.btn:hover{background:linear-gradient(135deg,var(--gldL),var(--gld));transform:translateY(-2px);box-shadow:0 10px 24px var(--gldG)}
+.btn:disabled{opacity:.7;cursor:wait;transform:none}
+
+.soS{grid-column:1/-1;margin-top:1.8rem}
+.soC{background:linear-gradient(145deg,var(--bg1),var(--bg2));border-radius:var(--rL);border:1px solid var(--bd2);padding:2.2rem 2.5rem;text-align:center}
+.soC h2{justify-content:center;padding-left:0;margin-bottom:.6rem}
+.soC h2::before{display:none}
+.soSub{color:var(--txt2);font-size:1rem;margin-bottom:2rem}
+.soSub strong{color:var(--gldL)}
+.soG{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem}
+.sl{display:flex;align-items:center;gap:16px;padding:1.2rem 1.5rem;background:var(--bg3);border:1px solid var(--bd2);border-radius:var(--rM);text-decoration:none;color:var(--txt);transition:.25s}
+.sl:hover{border-color:var(--bc,var(--gld));transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.sI{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;background:var(--bc,var(--gld));flex-shrink:0;transition:.25s}
+.sl:hover .sI{transform:scale(1.1) rotate(-5deg)}
+.sInf{display:flex;flex-direction:column;gap:2px;text-align:left;min-width:0}
+.sN{font-family:var(--fD);font-weight:700;font-size:.95rem}
+.sH{font-size:.78rem;color:var(--txt3);font-weight:500;overflow-wrap:anywhere}
+.sA{margin-left:auto;color:var(--txt3);font-size:.85rem;transition:.25s}
+.sl:hover .sA{color:var(--bc,var(--gld));transform:translateX(4px)}
+.dis{--bc:var(--dis)}.yt{--bc:var(--yt)}.ig{--bc:var(--ig)}.tk{--bc:var(--tk)}.tw{--bc:var(--tw)}.tv{--bc:var(--tv)}.wa{--bc:var(--wa)}.tg{--bc:var(--tg)}
+
+.ftr{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--bd1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fcp{font-size:.82rem;color:var(--txt3);display:flex;align-items:center;gap:8px}
+.fcp i{color:var(--gld)}
+.fl{display:flex;gap:1.2rem;flex-wrap:wrap}
+.fl a{color:var(--txt3);text-decoration:none;font-size:.82rem;font-weight:600;transition:.15s;display:flex;align-items:center;gap:6px}
+.fl a:hover{color:var(--gld)}
+
+.toast{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,var(--bg3),var(--bg2));border:1px solid var(--gld);border-left:4px solid var(--gld);border-radius:var(--rM);padding:1rem 1.5rem;color:var(--txt);box-shadow:var(--shL),0 0 20px var(--gldG);display:flex;align-items:center;gap:12px;z-index:1000;transform:translateX(500px);transition:transform .4s cubic-bezier(.68,-.55,.27,1.55);max-width:400px}
+.toast.show{transform:translateX(0)}
+.tI{width:40px;height:40px;background:rgba(46,204,113,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ok);font-size:1.1rem;flex-shrink:0}
+.tC{display:flex;flex-direction:column;gap:2px}
+.tT{font-weight:700;font-size:.9rem;color:var(--ok)}
+.tM{font-size:.82rem;color:var(--txt2)}
+
+/* ===== TRANSLATION FEATURE ===== */
+body.arabic-mode{
+  direction:rtl;
+  font-family:'Tajawal','Segoe UI','Tahoma','Arial',sans-serif;
+}
+
+/* FORCE HIDING TO FIX THE DOUBLING ISSUE */
+body.arabic-mode .en-text { display: none !important; }
+body.arabic-mode .ar-text { display: inline !important; }
+.ar-text { display: none !important; }
+
+/* Prevent flipping "LOS REYES" and section text in RTL mode */
+body.arabic-mode .hdr h1{
+  letter-spacing:4px;
+  direction:ltr;
+  text-align:right;
+  padding-right:0;
+}
+body.arabic-mode .apC h2,
+body.arabic-mode .apI{
+  direction:ltr;
+  text-align:right;
+}
+body.arabic-mode .apC h2 {
+  padding-left:0;
+  padding-right:1rem;
+}
+body.arabic-mode .apC h2::before {
+  left:auto;
+  right:0;
+}
+
+body.arabic-mode .tgl{letter-spacing:.5px}
+body.arabic-mode .card h2,
+body.arabic-mode .soC h2{
+  padding-left:0;
+  padding-right:1rem;
+}
+body.arabic-mode .card h2::before,
+body.arabic-mode .soC h2::before{
+  left:auto;
+  right:0;
+}
+body.arabic-mode .soC h2::before{display:none}
+body.arabic-mode .e{border-left:none;border-right:5px solid var(--gld)}
+body.arabic-mode .e:hover{border-right-color:var(--gldL)}
+body.arabic-mode .eapply{margin:10px 10px 0 0}
+body.arabic-mode .sInf{text-align:right}
+body.arabic-mode .sA{margin-left:0;margin-right:auto;transform:rotate(180deg)}
+body.arabic-mode .sl:hover .sA{transform:rotate(180deg) translateX(4px)}
+body.arabic-mode .toast{right:auto;left:30px;transform:translateX(-500px)}
+body.arabic-mode .toast.show{transform:translateX(0)}
+body.arabic-mode .fg select{background-position:left 1.2rem center}
+body.arabic-mode .hint{padding-left:0;padding-right:1.2rem}
+
+@media(hover:none){.ma{opacity:1}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media(max-width:1100px){.wrap{padding:2rem}.hdr h1{font-size:2.2rem}}
+@media(max-width:900px){
+.grid{grid-template-columns:1fr}.af{grid-template-columns:1fr}
+.wrap{padding:1.5rem;border-radius:var(--rL)}
+.hdr h1{font-size:1.9rem;letter-spacing:2px}
+body.arabic-mode .hdr h1{letter-spacing:2px}
+.logo{width:65px;height:65px}
+.badges{margin-left:0;width:100%}
+.stats{grid-template-columns:repeat(2,1fr)}
+.ff{flex-direction:column-reverse;align-items:stretch}
+.btn{width:100%}
+.soG{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+body{padding:10px}
+.wrap{padding:1.2rem;border-radius:var(--rM)}
+
+/* FIX: Header stacking to prevent squishing */
+.hdr{
+  flex-direction:column;
+  align-items:flex-start;
+  gap:15px;
+}
+.badges{
+  margin-left:0;
+  width:100%;
+  justify-content:space-between;
+}
+.lang-switch{
+  padding:10px 20px;
+  font-size:.9rem;
+}
+
+.hdr h1{font-size:1.5rem;letter-spacing:1.5px}
+body.arabic-mode .hdr h1{letter-spacing:1.5px}
+.logo{width:55px;height:55px;border-radius:15px}
+.m{flex-wrap:wrap;padding:.9rem 1.1rem;border-radius:var(--rM);gap:18px}
+.av{width:60px;height:60px;font-size:1.6rem}
+.ma{opacity:1}
+.stats{grid-template-columns:1fr;padding:1rem}
+.card{padding:1.3rem 1.2rem}
+.card h2{font-size:1.2rem}
+.et{flex-direction:column;align-items:flex-start}
+.apC,.soC{padding:1.5rem 1.3rem}
+.soG{grid-template-columns:1fr}
+
+/* FIX: Bigger tap targets for mobile */
+.sl{padding:1.5rem;}
+.eapply{padding:12px 24px; font-size:.9rem;}
+.fg input, .fg select {padding:14px 16px;}
+
+.ftr{flex-direction:column;text-align:center}
+.fl{justify-content:center}
+.toast{left:15px;right:15px;bottom:15px;max-width:none}
+body.arabic-mode .toast{left:15px;right:15px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hdr">
+<div class="logo"><img src="images/favcon.jpg.jpeg" alt="Los Reyes Logo"></div>
+<div class="title-group">
+<h1>LOS REYES</h1>
+<div class="tgl">
+  <i class="fas fa-fire" aria-hidden="true"></i>
+  <span class="en-text">Elite Free Fire</span>
+  <span class="ar-text">نخبة فري فاير</span>
+  <i class="fas fa-fire" aria-hidden="true"></i>
+</div>
+</div>
+<div class="badges">
+<span class="bd bdG"><i class="fas fa-shield-alt" aria-hidden="true"></i> <span class="en-text">Level 7</span><span class="ar-text">المستوى 7</span></span>
+<button class="lang-switch" id="langSwitch" type="button" aria-label="Toggle language">
+  <i class="fas fa-language" aria-hidden="true"></i>
+  <span id="langLabel">العربية</span>
+</button>
+</div>
+</header>
+
+<div class="stats">
+<div class="st"><div class="stI"><i class="fas fa-users" aria-hidden="true"></i></div><div class="stC"><span class="stV">55</span><span class="stL"><span class="en-text">Members</span><span class="ar-text">الأعضاء</span></span></div></div>
+<div class="st"><div class="stI"><i class="fas fa-trophy" aria-hidden="true"></i></div><div class="stC"><span class="stV">47</span><span class="stL"><span class="en-text">Wins</span><span class="ar-text">الانتصارات</span></span></div></div>
+<div class="st"><div class="stI"><i class="fas fa-chart-line" aria-hidden="true"></i></div><div class="stC"><span class="stV">68.7</span><span class="stL"><span class="en-text">Avg Level</span><span class="ar-text">متوسط المستوى</span></span></div></div>
+<div class="st"><div class="stI"><i class="fas fa-medal" aria-hidden="true"></i></div><div class="stC"><span class="stV">#3</span><span class="stL"><span class="en-text">City Rank</span><span class="ar-text">ترتيب المدينة</span></span></div></div>
+<div class="st"><div class="stI"><i class="fas fa-calendar-check" aria-hidden="true"></i></div><div class="stC"><span class="stV">1</span><span class="stL"><span class="en-text">Events</span><span class="ar-text">الأحداث</span></span></div></div>
+</div>
+
+<div class="grid">
+
+<!-- ===== MEMBERS ===== -->
+<section class="card" id="members">
+<h2><i class="fas fa-users" aria-hidden="true"></i> <span class="en-text">Guild Members</span><span class="ar-text">أعضاء الرابطة</span></h2>
+<div class="ml">
+  
+<!-- LR REY (Leader - GOLD RING & BADGE) -->
+<div class="m mL">
+  <div class="av">
+    <a href="profile.html?id=lr-rey"><img src="images/rey.profile.jpg" alt="LR REY"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-rey">LR REY</a> <span class="mr rC"><span class="en-text">Leader</span><span class="ar-text">القائد</span></span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 84</span><span class="ar-text">مستوى 84</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Sniper</span><span class="ar-text">قناص</span></span><span><i class="fas fa-skull"></i> <span class="en-text">5.7 K/D</span><span class="ar-text">5.7 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-rey" class="profile-btn" aria-label="View LR REY's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+<!-- LR GUTS (Co-Leader - BRONZE RING & BADGE) -->
+<div class="m mCo">
+  <div class="av">
+    <a href="profile.html?id=lr-guts"><img src="images/guts.profile.jpg" alt="LR GUTS"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-guts">LR GUTS</a> <span class="mr rCo"><span class="en-text">Co-Leader</span><span class="ar-text">نائب القائد</span></span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 69</span><span class="ar-text">مستوى 69</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Support</span><span class="ar-text">دعم</span></span><span><i class="fas fa-skull"></i> <span class="en-text">1.6 K/D</span><span class="ar-text">1.6 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-guts" class="profile-btn" aria-label="View LR GUTS's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+<!-- LR KOSTA (Officer - SILVER RING & BADGE) -->
+<div class="m mC">
+  <div class="av">
+    <a href="profile.html?id=lr-kosta"><img src="images/kosta.profile.jpeg" alt="LR KOSTA"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-kosta">LR KOSTA</a> <span class="mr rO"><span class="en-text">Sheriff</span><span class="ar-text"></span>زعيم</span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 72</span><span class="ar-text">مستوى 72</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Rusher</span><span class="ar-text">مهاجم</span></span><span><i class="fas fa-skull"></i> <span class="en-text">6.7 K/D</span><span class="ar-text">6.7 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-kosta" class="profile-btn" aria-label="View LR KOSTA's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+<!-- LR DUXX -->
+<div class="m">
+  <div class="av">
+    <a href="profile.html?id=lr-duxx"><img src="images/duxx.jpg.jpeg" alt="LR DUXX"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-duxx">LR DUXX</a> <span class="mr rO"><span class="en-text">Member</span><span class="ar-text">عضو</span></span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 71</span><span class="ar-text">مستوى 71</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Support</span><span class="ar-text">دعم</span></span><span><i class="fas fa-skull"></i> <span class="en-text">4.1 K/D</span><span class="ar-text">4.1 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-duxx" class="profile-btn" aria-label="View LR DUXX's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+<!-- LR YAHYA -->
+<div class="m">
+  <div class="av">
+    <a href="profile.html?id=lr-yahya"><img src="images/yahya.profile.jpeg" alt="LR YAHYA"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-yahya">LR YAHYA</a> <span class="mr rO"><span class="en-text">Member</span><span class="ar-text">عضو</span></span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 59</span><span class="ar-text">مستوى 59</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Support</span><span class="ar-text">دعم</span></span><span><i class="fas fa-skull"></i> <span class="en-text">4.1 K/D</span><span class="ar-text">4.1 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-yahya" class="profile-btn" aria-label="View LR YAHYA's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+<!-- LR MOHAMMED -->
+<div class="m">
+  <div class="av">
+    <a href="profile.html?id=lr-mohammed"><img src="images/mohammed.profile.jpeg" alt="LR MOHAMMED"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-mohammed">LR MOHAMMED</a> <span class="mr rO"><span class="en-text">Member</span><span class="ar-text">عضو</span></span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 70</span><span class="ar-text">مستوى 70</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Support</span><span class="ar-text">دعم</span></span><span><i class="fas fa-skull"></i> <span class="en-text">6.5 K/D</span><span class="ar-text">6.5 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-mohammed" class="profile-btn" aria-label="View LR MOHAMMED's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+<!-- LR HICHAM -->
+<div class="m">
+  <div class="av">
+    <a href="profile.html?id=lr-hicham"><img src="images/hicham.profile.jpeg" alt="LR HICHAM"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-hicham">LR HICHAM</a> <span class="mr rO"><span class="en-text">Member</span><span class="ar-text">عضو</span></span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 58</span><span class="ar-text">مستوى 58</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Support</span><span class="ar-text">دعم</span></span><span><i class="fas fa-skull"></i> <span class="en-text">2.3 K/D</span><span class="ar-text">2.3 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-hicham" class="profile-btn" aria-label="View LR HICHAM's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+<!-- LR OBAMA -->
+<div class="m">
+  <div class="av">
+    <a href="profile.html?id=lr-obama"><img src="images/obama.profile.jpeg" alt="LR OBAMA"></a>
+    <span class="dot"></span>
+  </div>
+  <div class="mi">
+    <div class="mn"><a href="profile.html?id=lr-obama">LR OBAMA</a> <span class="mr rO"><span class="en-text">Member</span><span class="ar-text">عضو</span></span></div>
+    <div class="ms"><span><i class="fas fa-level-up-alt"></i> <span class="en-text">Lvl 67</span><span class="ar-text">مستوى 67</span></span><span><i class="fas fa-crosshairs"></i> <span class="en-text">Rusher</span><span class="ar-text">مهاجم</span></span><span><i class="fas fa-skull"></i> <span class="en-text">4 K/D</span><span class="ar-text">4 K/D</span></span></div>
+  </div>
+  <div class="ma"><a href="profile.html?id=lr-obama" class="profile-btn" aria-label="View LR OBAMA's profile"><i class="fas fa-user"></i></a></div>
+</div>
+
+</div><!-- /.ml -->
+</section><!-- /#members -->
+
+<!-- ===== EVENTS ===== -->
+<section class="card" id="events">
+  <h2><i class="fas fa-calendar-alt" aria-hidden="true"></i> <span class="en-text">Upcoming Events</span><span class="ar-text">الأحداث القادمة</span></h2>
+  <div class="el">
+
+    <div class="e">
+      <div class="et">
+       <span class="en"> 💎 <span class="en-text">Diamond Tournament</span><span class="ar-text">بطولة الجواهر</span></span>
+       <span class="ed"><i class="far fa-calendar-alt"></i> <span class="en-text">Nov 14, 18:30</span><span class="ar-text">14 نوفمبر، 18:30</span></span>
+      </div>
+      <div class="eds"><i class="fas fa-trophy"></i> <span class="en-text">Bermuda · The Prize: 1000 Diamonds</span><span class="ar-text">برمودا · الجائزة: 1000 جوهرة</span></div>
+      <div class="em">
+        <span><i class="fas fa-user-friends"></i> <span class="en-text" id="slotTextEn">0/30 slots</span><span class="ar-text" id="slotTextAr">0/30 مقعد</span></span>
+        <span><i class="fas fa-clock"></i> <span class="en-text">2h 00m</span><span class="ar-text">ساعتان</span></span>
+        <span><i class="fas fa-medal"></i> <span class="en-text">Championship</span><span class="ar-text">بطولة</span></span>
+      </div>
+      <div class="ep"><div class="epb" id="progressBar" style="width:0%"></div></div>
+      <span class="es f"><i class="fas fa-hourglass-half"></i> <span class="en-text">Filling up</span><span class="ar-text">يتم ملؤها</span></span>
+      <a href="apply.html?event=guild-tournament" class="eapply"><i class="fas fa-paper-plane"></i> <span class="en-text">Apply</span><span class="ar-text">قدّم</span></a>
+    </div>
+
+  </div>
+</section><!-- /#events -->
+
+</div><!-- /.grid -->
+
+<!-- ===== APPLY ===== -->
+<section class="apS" id="apply">
+<div class="apC">
+<h2><i class="fas fa-user-plus" aria-hidden="true"></i> <span class="en-text">Apply to Join Los Reyes</span><span class="ar-text">قدّم للانضمام إلى <span dir="ltr">Los Reyes</span></span></h2>
+
+<p class="apI en-text">Think you have what it takes to join <strong>Los Reyes</strong>? We're looking for dedicated, skilled, and active players who want to dominate the Free Fire battlefield. Fill out the form below and our officers will review your application within <strong>24 hours</strong>.</p>
+
+<p class="apI ar-text">هل تعتقد أن لديك ما يلزم للانضمام إلى <strong dir="ltr">Los Reyes</strong>؟ نحن نبحث عن لاعبين مخلصين ومهرة ونشطين يريدون السيطرة على ساحة معركة فري فاير. املأ النموذج أدناه وسيراجع ضباطنا طلبك خلال <strong>24 ساعة</strong>.</p>
+<form class="af" onsubmit="handleApp(event)">
+  <!-- In-Game Name -->
+  <div class="fg">
+    <label for="ign"><i class="fas fa-id-card" aria-hidden="true"></i> <span class="en-text">In-Game Name</span><span class="ar-text">الاسم داخل اللعبة</span> <span class="req">*</span></label>
+    <input type="text" id="ign" name="ign" placeholder="e.g. LR SHADOW" required maxlength="20">
+  </div>
+
+  <!-- UID -->
+  <div class="fg">
+    <label for="uid"><i class="fas fa-hashtag" aria-hidden="true"></i> <span class="en-text">Free Fire UID</span><span class="ar-text">معرف فري فاير</span> <span class="req">*</span></label>
+    <input type="text" id="uid" name="uid" placeholder="e.g. 1234567890" required pattern="[0-9]{6,15}" inputmode="numeric" title="6 to 15 digits">
+  </div>
+
+  <!-- Current Level -->
+  <div class="fg">
+    <label for="level"><i class="fas fa-chart-line" aria-hidden="true"></i> <span class="en-text">Current Level</span><span class="ar-text">المستوى الحالي</span> <span class="req">*</span></label>
+    <input type="number" id="level" name="level" min="1" max="100" placeholder="e.g. 55" required>
+  </div>
+
+  <!-- Rank Dropdown (Fixed) -->
+  <div class="fg">
+    <label for="rank"><i class="fas fa-medal" aria-hidden="true"></i> <span class="en-text">BR Rank</span><span class="ar-text">رتبة البطولة</span> <span class="req">*</span></label>
+    <select id="rank" name="rank" required>
+      <option value="" disabled selected data-en="Select your rank" data-ar="اختر رتبتك">Select your rank</option>
+      <option data-en="Bronze" data-ar="برونزي">Bronze</option>
+      <option data-en="Silver" data-ar="فضي">Silver</option>
+      <option data-en="Gold" data-ar="ذهبي">Gold</option>
+      <option data-en="Platinum" data-ar="بلاتيني">Platinum</option>
+      <option data-en="Diamond" data-ar="ماسي">Diamond</option>
+      <option data-en="Heroic" data-ar="بطولي">Heroic</option>
+      <option data-en="Grandmaster" data-ar="جراند ماستر">Grandmaster</option>
+    </select>
+  </div>
+
+  <!-- Role Dropdown (Fixed) -->
+  <div class="fg">
+    <label for="role"><i class="fas fa-crosshairs" aria-hidden="true"></i> <span class="en-text">Preferred Role</span><span class="ar-text">الدور المفضل</span></label>
+    <select id="role" name="role">
+      <option value="" disabled selected data-en="Select your role" data-ar="اختر دورك">Select your role</option>
+      <option data-en="Rusher" data-ar="مهاجم">Rusher</option>
+      <option data-en="Sniper" data-ar="قناص">Sniper</option>
+      <option data-en="Support" data-ar="دعم">Support</option>
+      <option data-en="Bomber" data-ar="مفجر">Bomber</option>
+      <option data-en="Flanker" data-ar="خناق">Flanker</option>
+    </select>
+  </div>
+
+  <!-- Reason -->
+  <div class="fg fw">
+    <label for="reason"><i class="fas fa-pen" aria-hidden="true"></i> <span class="en-text">Why do you want to join?</span><span class="ar-text">لماذا تريد الانضمام؟</span> <span class="req">*</span></label>
+    <textarea id="reason" name="reason" 
+      data-placeholder-en="Tell us about yourself, your Free Fire experience, and why you'd be a great fit..." 
+      data-placeholder-ar="أخبرنا عن نفسك، وخبرتك في فري فاير، ولماذا ستكون مناسبًا..." 
+      placeholder="Tell us about yourself..." required maxlength="500" minlength="10"></textarea>
+    <span class="hint"><span class="en-text">Minimum 10 characters · Maximum 500</span><span class="ar-text">الحد الأدنى 10 أحرف · الحد الأقصى 500</span></span>
+  </div>
+
+  <!-- Honeypot -->
+  <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+
+  <!-- Submit Button -->
+  <div class="ff">
+    <span class="ft"><i class="fas fa-check-circle" aria-hidden="true"></i> <span class="en-text">By applying, you agree to follow the guild rules.</span><span class="ar-text">بالتقديم، فإنك توافق على اتباع قواعد الرابطة</span></span>
+    <button type="submit" class="btn"><i class="fas fa-paper-plane" aria-hidden="true"></i> <span class="en-text">Send Application</span><span class="ar-text">إرسال الطلب</span></button>
+  </div>
+</form>
+</div>
+</section>
+
+<!-- ===== SOCIAL ===== -->
+<section class="soS" id="social">
+
+<div class="soC">
+<h2><i class="fas fa-share-alt" aria-hidden="true"></i> <span class="en-text">Connect With Los Reyes</span><span class="ar-text">تواصل مع <span dir="ltr">Los Reyes</span></span></h2>
+
+<p class="soSub en-text">Follow our channels for <strong>event announcements</strong>, <strong>highlights</strong>, <strong>tournaments</strong>, and exclusive guild content.</p>
+
+<p class="soSub ar-text">تابع قنواتنا للحصول على <strong>إعلانات الأحداث</strong>، <strong>أبرز اللحظات</strong>، <strong>البطولات</strong>، و محتوى الرابطة الحصري.</p>
+
+<div class="soG">
+
+<a href="https://youtube.com/@los-reyes-1?si=LMuwCE67zLdPVuRY" target="_blank" rel="noopener noreferrer" class="sl yt">
+<div class="sI"><i class="fab fa-youtube" aria-hidden="true"></i></div>
+<div class="sInf"><span class="sN">YouTube</span><span class="sH">@los-reyes-1</span></div>
+<i class="fas fa-arrow-right sA" aria-hidden="true"></i>
+</a>
+
+<a href="https://www.instagram.com/zakar_iao06?cplk=MWx1Z2FhaXBsNjhucA==" target="_blank" rel="noopener noreferrer" class="sl ig">
+<div class="sI"><i class="fab fa-instagram" aria-hidden="true"></i></div>
+<div class="sInf"><span class="sN">Instagram</span><span class="sH">@zakar_iao06</span></div>
+<i class="fas fa-arrow-right sA" aria-hidden="true"></i>
+</a>
+
+<a href="https://www.tiktok.com/@lr_rey?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener noreferrer" class="sl tk">
+<div class="sI"><i class="fab fa-tiktok" aria-hidden="true"></i></div>
+<div class="sInf"><span class="sN">TikTok</span><span class="sH">@lr_rey</span></div>
+<i class="fas fa-arrow-right sA" aria-hidden="true"></i>
+</a>
+
+</div>
+</div>
+</section>
+
+<footer class="ftr">
+<div class="fcp"><i class="fas fa-crown" aria-hidden="true"></i><span class="en-text">© 2026 Los Reyes Guild · Free Fire · All rights reserved</span><span class="ar-text">© 2026 رابطة Los Reyes · فري فاير · جميع الحقوق محفوظة</span></div>
+<div class="fl">
+<a href="#members"><i class="fas fa-users" aria-hidden="true"></i> <span class="en-text">Members</span><span class="ar-text">الأعضاء</span></a>
+<a href="#events"><i class="fas fa-calendar-alt" aria-hidden="true"></i> <span class="en-text">Events</span><span class="ar-text">الأحداث</span></a>
+<a href="#apply"><i class="fas fa-user-plus" aria-hidden="true"></i> <span class="en-text">Apply</span><span class="ar-text">قدّم</span></a>
+<a href="#social"><i class="fas fa-share-alt" aria-hidden="true"></i> <span class="en-text">Social</span><span class="ar-text">تواصل</span></a>
+</div>
+</footer>
+
+</div><!-- /.wrap -->
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+<div class="tI"><i class="fas fa-check" aria-hidden="true"></i></div>
+<div class="tC">
+  <span class="tT en-text">Application Sent!</span>
+  <span class="tT ar-text">تم إرسال الطلب!</span>
+  <span class="tM en-text">We'll review your application within 24 hours.</span>
+  <span class="tM ar-text">سنراجع طلبك خلال 24 ساعة.</span>
+</div>
+</div>
+
+<script>
+async function handleApp(e) {
+  e.preventDefault();
+  var f = e.target;
+  var btn = f.querySelector('button[type="submit"]');
+  var originalText = btn.innerHTML;
+  var isArabic = document.body.classList.contains('arabic-mode');
+
+  btn.disabled = true;
+  btn.innerHTML = isArabic 
+    ? '<i class="fas fa-spinner fa-spin"></i> جارٍ الإرسال...' 
+    : '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+  try {
+    var response = await fetch('https://formspree.io/f/meaaplng', {
+      method: 'POST',
+      body: new FormData(f),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (!response.ok) throw new Error('Sending failed');
+
+    f.reset();
+    showToast();
+  } catch (error) {
+    alert(isArabic ? 'تعذر إرسال طلبك. يرجى المحاولة مرة أخرى.' : 'Unable to send your application. Please try again.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  }
+}
+
+var tt;
+function showToast() {
+  var t = document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(tt);
+  tt = setTimeout(function() { t.classList.remove('show'); }, 5000);
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = this.getAttribute('href');
+    if (id === '#') return;
+    var t = document.querySelector(id);
+    if (t) {
+      e.preventDefault();
+      t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+window.addEventListener('load', function() {
+  document.querySelectorAll('.stV').forEach(function(s) {
+    var txt = s.textContent.trim();
+    var v = parseFloat(txt.replace(/[^0-9.]/g, ''));
+    if (isNaN(v)) return;
+
+    var dec = txt.indexOf('.') !== -1;
+    var pre = txt.charAt(0) === '#' ? '#' : '';
+    var st = performance.now();
+
+    function up(now) {
+      var p = Math.min((now - st) / 1000, 1);
+      var c = v * (1 - Math.pow(1 - p, 3));
+      s.textContent = pre + (dec ? c.toFixed(1) : Math.floor(c));
+      if (p < 1) requestAnimationFrame(up);
+      else s.textContent = txt;
+    }
+    requestAnimationFrame(up);
+  });
+});
+
+/* ===== LANGUAGE SWITCHER ===== */
+(function () {
+  var btn = document.getElementById('langSwitch');
+  var label = document.getElementById('langLabel');
+  var body = document.body;
+
+  // Function to translate dropdowns and textareas
+  function updateFormLanguage(isArabic) {
+    // 1. Translate Dropdown Options
+    document.querySelectorAll('select option').forEach(function(option) {
+      var enText = option.getAttribute('data-en');
+      var arText = option.getAttribute('data-ar');
+      if (enText && arText) {
+        option.textContent = isArabic ? arText : enText;
+      }
+    });
+
+    // 2. Translate Textarea Placeholders
+    document.querySelectorAll('textarea').forEach(function(textarea) {
+      var enPlaceholder = textarea.getAttribute('data-placeholder-en');
+      var arPlaceholder = textarea.getAttribute('data-placeholder-ar');
+      if (enPlaceholder && arPlaceholder) {
+        textarea.placeholder = isArabic ? arPlaceholder : enPlaceholder;
+      }
+    });
+
+    // 3. Translate Text Input Placeholders (if they have data attributes)
+    document.querySelectorAll('input[type="text"]').forEach(function(input) {
+      var enPlaceholder = input.getAttribute('data-placeholder-en');
+      var arPlaceholder = input.getAttribute('data-placeholder-ar');
+      if (enPlaceholder && arPlaceholder) {
+        input.placeholder = isArabic ? arPlaceholder : enPlaceholder;
+      }
+    });
+  }
+
+  // Restore saved language on page load
+  var saved = localStorage.getItem('losReyesLang');
+  if (saved === 'ar') {
+    body.classList.add('arabic-mode');
+    body.setAttribute('dir', 'rtl');
+    document.documentElement.setAttribute('lang', 'ar');
+    label.textContent = 'English';
+    btn.setAttribute('aria-label', 'Switch to English');
+    updateFormLanguage(true); // Translate the form on load
+  }
+
+  // Toggle language on button click
+  btn.addEventListener('click', function () {
+    var isArabic = body.classList.toggle('arabic-mode');
+
+    if (isArabic) {
+      body.setAttribute('dir', 'rtl');
+      document.documentElement.setAttribute('lang', 'ar');
+      label.textContent = 'English';
+      btn.setAttribute('aria-label', 'Switch to English');
+      localStorage.setItem('losReyesLang', 'ar');
+      updateFormLanguage(true); // Translate to Arabic
+    } else {
+      body.setAttribute('dir', 'ltr');
+      document.documentElement.setAttribute('lang', 'en');
+      label.textContent = 'العربية';
+      btn.setAttribute('aria-label', 'Switch to Arabic');
+      localStorage.setItem('losReyesLang', 'en');
+      updateFormLanguage(false); // Translate to English
+    }
+  });
+})();
+
+</script>
+
+<!-- ===== FIREBASE INTEGRATION ===== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCwmFPI4lMdAKXf62IIlA7Haj4Jw3-pHGc",
+    authDomain: "los-reyes-7c624.firebaseapp.com",
+    projectId: "los-reyes-7c624",
+    storageBucket: "los-reyes-7c624.firebasestorage.app",
+    messagingSenderId: "850765464415",
+    appId: "1:850765464415:web:0197fa45ccf28a6f34ecea",
+    measurementId: "G-R18Q6D0MGM"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const eventRef = doc(db, "events", "guild-tournament");
+  const maxSlots = 30;
+
+  onSnapshot(eventRef, (docSnap) => {
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const currentSlots = data.slots || 0;
+
+      document.getElementById("slotTextEn").textContent = currentSlots + "/" + maxSlots + " slots";
+      document.getElementById("slotTextAr").textContent = currentSlots + "/" + maxSlots + " مقعد";
+
+      const percentage = Math.min((currentSlots / maxSlots) * 100, 100);
+      document.getElementById("progressBar").style.width = percentage + "%";
+    } else {
+      setDoc(eventRef, { slots: 0 });
+    }
+  });
+
+  window.addSlot = async function() {
+    try {
+      await updateDoc(eventRef, { slots: increment(1) });
+    } catch (error) {
+      console.error("Error updating slots:", error);
+    }
+  };
+</script>
+
+</body>
+</html>
